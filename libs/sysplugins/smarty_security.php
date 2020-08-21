@@ -169,6 +169,13 @@ class Smarty_Security
     public $streams = array('file');
 
     /**
+     * Vanilla: Whether or not streams can be used as variables.
+     *
+     * @var bool
+     */
+    public $allow_stream_variables = true;
+
+    /**
      * + flag if constants can be accessed from template
      *
      * @var boolean

@@ -2689,6 +2689,11 @@ class Smarty_Internal_Templateparser
     // line 628 "../smarty/lexer/smarty_internal_templateparser.y"
     public function yy_r68()
     {
+        // Vanilla: Allow stream variables to be disabled.
+        if ($this->security && !$this->security->allow_stream_variables) {
+            $this->compiler->trigger_template_error("access to stream variables is not allowed by security setting");
+        }
+
         $this->_retvalue =
             '$_smarty_tpl->getStreamVariable(\'' .
             substr($this->yystack[ $this->yyidx + -2 ]->minor, 1) .
@@ -2837,6 +2842,11 @@ class Smarty_Internal_Templateparser
     // line 765 "../smarty/lexer/smarty_internal_templateparser.y"
     public function yy_r95()
     {
+        // Vanilla: Respect the classes setting when accessed through variables.
+        if ($this->security && $this->security->static_classes !== []) {
+            $this->compiler->trigger_template_error("access to static class members through variables is not allowed by security setting");
+        }
+
         $prefixVar = $this->compiler->getNewPrefixVariable();
         if ($this->yystack[ $this->yyidx + -2 ]->minor[ 'var' ] === '\'smarty\'') {
             $this->compiler->appendPrefixCode("<?php {$prefixVar} = " .
