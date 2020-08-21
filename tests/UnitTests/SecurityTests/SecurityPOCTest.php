@@ -41,9 +41,14 @@ class SecurityPOCTest extends PHPUnit_Smarty {
         $r = $this->smarty->fetch('string:{$php:input}');
     }
 
+    /**
+     * The smarty security policy should not be disabled.
+     */
     public function testDisableSecurity() {
         $this->smarty->security_policy->static_classes = null;
         $this->smarty->security_policy->disabled_special_smarty_vars[] = 'template_object';
+
+        $this->expectExceptionMessage('not allowed by security setting');
         $r = $this->smarty->fetch('disable-security.tpl');
     }
 }

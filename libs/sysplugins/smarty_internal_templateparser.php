@@ -2843,7 +2843,7 @@ class Smarty_Internal_Templateparser
     public function yy_r95()
     {
         // Vanilla: Respect the classes setting when accessed through variables.
-        if ($this->security && $this->security->static_classes !== []) {
+        if ($this->security && $this->security->static_classes !== array()) {
             $this->compiler->trigger_template_error("access to static class members through variables is not allowed by security setting");
         }
 
